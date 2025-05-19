@@ -1,0 +1,12 @@
+{
+  "ciudadHora": 25254325,
+  "reportando": 109309,
+  "conErrores": 9122,
+  "mensual": [5.2, 4.1, 7.8, 6.5, 3.2, 6.9, 7.1, 8.3],
+  "porZona": [
+    { "nombre": "QUERU ALTO",    "valor": 1.5 },
+    { "nombre": "ARANJUEZ ALTO",  "valor": 2.8 },
+    { "nombre": "MESADILLA",      "valor": 3.4 }
+  ],
+  "promedioOMS": 75
+}
