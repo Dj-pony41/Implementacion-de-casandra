@@ -20,3 +20,31 @@ export interface Zone_v2 {
   distritoId?: String;
   zonaId?: number;
 }
+
+
+
+
+// src/types/index.ts
+
+export interface Medidor {
+  CodigoMedidor: string
+  Modelo:        string
+  Estado:        string
+  FechaHora:     string   // o Date si parseas en el front
+  Lectura:       number
+  ConsumoPeriodo:number
+  TarifaUSD:     string
+}
+
+export interface ContratoResponse {
+  ContratoID: string
+  Nombre:     string
+  CI_NIT:     number
+  Email:      string
+  Telefono:   string
+  Latitud:    number
+  Longitud:   number
+  Distrito:   string
+  Zona:       string
+  Medidores:  Medidor[]
+}

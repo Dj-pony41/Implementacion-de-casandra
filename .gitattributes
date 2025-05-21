@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Ignorar carpeta de lecturas (ubicada en backend/complementos/Simulacion/)
+../../backend/complementos/Simulacion/lecturas/
