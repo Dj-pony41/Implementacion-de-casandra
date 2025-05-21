@@ -1,5 +1,6 @@
 import React from 'react';
 import ZoneTreeFilter from './ZoneTreeFilter';
+
 interface Props {
   search: string;
   onSearch: (s: string) => void;
@@ -7,8 +8,18 @@ interface Props {
   onZoneChange: (z: any) => void;
   date: string;
   onDateChange: (d: string) => void;
+  onSearchExecute: () => void; // Nueva prop para ejecutar la búsqueda
 }
-const Header: React.FC<Props> = ({ search, onSearch, zone, onZoneChange, date, onDateChange }) => (
+
+const Header: React.FC<Props> = ({ 
+  search, 
+  onSearch, 
+  zone, 
+  onZoneChange, 
+  date, 
+  onDateChange,
+  onSearchExecute 
+}) => (
   <header className="header">
     <div className="logo">SEMAPA</div>
     <div className="controls">
@@ -19,7 +30,7 @@ const Header: React.FC<Props> = ({ search, onSearch, zone, onZoneChange, date, o
         onChange={e => onSearch(e.target.value)}
         onKeyDown={e => {
           if (e.key === 'Enter') {
-            onSearch(e.currentTarget.value); // ejecuta búsqueda
+            onSearchExecute(); // Llama a la función de búsqueda
           }
         }}
       />
@@ -32,4 +43,5 @@ const Header: React.FC<Props> = ({ search, onSearch, zone, onZoneChange, date, o
     </div>
   </header>
 );
+
 export default Header;

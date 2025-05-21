@@ -40,10 +40,10 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
   }, []);
 
   useEffect(() => {
-    fetchHeatmapData(zone, search, date).then((casasConLecturas) => {
+    fetchHeatmapData(zone, '', date).then((casasConLecturas) => {
       setAllPoints(casasConLecturas);
     });
-  }, [zone, search, date]);
+  }, [zone, date]);
 
   const updateVisiblePoints = useCallback(() => {
     if (!mapRef.current || allPoints.length === 0) return;
@@ -63,27 +63,37 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
       }
 
       setVisiblePoints(filtered);
+    }, 100);
+  }, [allPoints, zone.distritoId, districtShapes]);
 
-      if (search.length > 0 && mapRef.current) {
-        const lower = search.toLowerCase();
-        const coincidencias = allPoints.filter(p =>
-          p.ContratoID?.toLowerCase().includes(lower) ||
-          p.Nombre?.toLowerCase().includes(lower) ||
-          p.Medidores?.some((m: any) => m.CodigoMedidor?.toLowerCase().includes(lower))
-        );
+  useEffect(() => {
+    const handler = (e: CustomEvent<string>) => {
+      if (!mapRef.current || allPoints.length === 0) return;
+      
+      const searchTerm = e.detail.toLowerCase();
+      const coincidencias = allPoints.filter(p =>
+        p.ContratoID?.toLowerCase().includes(searchTerm) ||
+        p.Nombre?.toLowerCase().includes(searchTerm) ||
+        p.Medidores?.some((m: any) => m.CodigoMedidor?.toLowerCase().includes(searchTerm))
+      );
 
-        if (coincidencias.length === 0) {
-          alert('No se encontró ninguna coincidencia');
-        } else if (coincidencias.length === 1) {
+      if (coincidencias.length === 0) {
+        alert('No se encontró ninguna coincidencia');
+      } else {
+        if (coincidencias.length === 1) {
           mapRef.current.setView([coincidencias[0].Latitud, coincidencias[0].Longitud], 18);
           setPopupTargetId(coincidencias[0].ContratoID);
+          onSelect(coincidencias[0]);
         } else {
           const bounds = new LatLngBounds(coincidencias.map(p => [p.Latitud, p.Longitud]));
           mapRef.current.fitBounds(bounds, { padding: [20, 20] });
         }
       }
-    }, 100);
-  }, [allPoints, zone.distritoId, districtShapes]);
+    };
+
+    window.addEventListener('execute-search', handler as EventListener);
+    return () => window.removeEventListener('execute-search', handler as EventListener);
+  }, [allPoints, onSelect]);
 
   function MapZoomWatcher() {
     const map = useMap();
@@ -163,11 +173,17 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
           radius={6}
           fillOpacity={0.8}
           pathOptions={{ color: 'blue' }}
+          eventHandlers={{
+            click: () => {
+              onSelect(casa);
+            }
+          }}
           ref={ref => {
             if (ref && popupTargetId === casa.ContratoID) {
               setTimeout(() => ref.openPopup(), 300);
             }
-          }}>
+          }}
+        >
           <Popup>
             <MedidorTabs casa={casa} />
           </Popup>
