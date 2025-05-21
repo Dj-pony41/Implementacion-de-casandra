@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { MapContainer, TileLayer, CircleMarker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, CircleMarker, Popup, Polygon, useMap } from 'react-leaflet';
 import { HeatmapLayer } from 'react-leaflet-heatmap-layer-v3';
 import 'leaflet/dist/leaflet.css';
 import { fetchHeatmapData } from '../services/api';
 import type { Zone } from '../types';
 import { LatLngBounds, Map } from 'leaflet';
+import booleanPointInPolygon from '@turf/boolean-point-in-polygon';
+import { point, polygon } from '@turf/helpers';
 
 interface Props {
   search: string;
@@ -19,6 +21,22 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
   const [zoom, setZoom] = useState<number>(12);
   const mapRef = useRef<Map | null>(null);
   const updateTimeoutRef = useRef<NodeJS.Timeout>();
+  const [districtShapes, setDistrictShapes] = useState<Record<string, [number, number][]>>({});
+  const prevDistritoIdRef = useRef<string | undefined>();
+
+  useEffect(() => {
+    fetch('/data/distritos.geojson')
+      .then(res => res.json())
+      .then(data => {
+        const dict: Record<string, [number, number][]> = {};
+        data.features.forEach((f: any) => {
+          const id = f.properties.name;
+          const coords = f.geometry.coordinates[0].map(([lng, lat]: [number, number]) => [lat, lng]);
+          dict[id] = coords;
+        });
+        setDistrictShapes(dict);
+      });
+  }, []);
 
   useEffect(() => {
     fetchHeatmapData(zone, search, date).then((points) => {
@@ -35,10 +53,17 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
       setZoom(currentZoom);
 
       const bounds = mapRef.current!.getBounds();
-      const filtered = allPoints.filter(p => bounds.contains([p.lat, p.lng]));
+      let filtered = allPoints.filter(p => bounds.contains([p.lat, p.lng]));
+
+      const key = zone.distritoId?.toString();
+      if (key && districtShapes[key]) {
+        const shape = polygon([districtShapes[key].map(([lat, lng]) => [lng, lat])]);
+        filtered = filtered.filter(p => booleanPointInPolygon(point([p.lng, p.lat]), shape));
+      }
+
       setVisiblePoints(filtered);
     }, 100);
-  }, [allPoints]);
+  }, [allPoints, zone.distritoId, districtShapes]);
 
   function MapZoomWatcher() {
     const map = useMap();
@@ -55,8 +80,21 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
       };
     }, [map, updateVisiblePoints]);
 
+    useEffect(() => {
+      const id = zone.distritoId;
+      const coords = id ? districtShapes[id] : null;
+
+      if (mapRef.current && coords && id !== prevDistritoIdRef.current) {
+        const bounds = new LatLngBounds(coords);
+        mapRef.current.fitBounds(bounds, { padding: [20, 20] });
+        prevDistritoIdRef.current = id;
+      }
+    }, [zone.distritoId, districtShapes]);
+
     return null;
   }
+
+  const currentPolygon = zone.distritoId ? districtShapes[zone.distritoId.toString()] : null;
 
   return (
     <MapContainer
@@ -71,7 +109,14 @@ const MapView: React.FC<Props> = ({ search, zone, date, onSelect }) => {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      {zoom >= 12 && visiblePoints.length > 0 && (
+      {currentPolygon && (
+        <Polygon
+          positions={currentPolygon}
+          pathOptions={{ color: 'green', fillOpacity: 0.2 }}
+        />
+      )}
+
+      {zoom >= 10 && visiblePoints.length > 0 && (
         <HeatmapLayer
           fitBoundsOnLoad={false}
           fitBoundsOnUpdate={false}

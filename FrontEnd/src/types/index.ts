@@ -14,3 +14,9 @@ export interface Zone {
   distritoId?: number;
   zonaId?: number;
 }
+
+export interface Zone_v2 {
+  subAlcaldiaId?: number;
+  distritoId?: String;
+  zonaId?: number;
+}
