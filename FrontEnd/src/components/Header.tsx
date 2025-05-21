@@ -17,6 +17,11 @@ const Header: React.FC<Props> = ({ search, onSearch, zone, onZoneChange, date, o
         placeholder="Buscar contrato, medidor o cliente"
         value={search}
         onChange={e => onSearch(e.target.value)}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            onSearch(e.currentTarget.value); // ejecuta búsqueda
+          }
+        }}
       />
       <ZoneTreeFilter selected={zone} onChange={onZoneChange} />
       <input
