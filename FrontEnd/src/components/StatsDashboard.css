@@ -1,0 +1,63 @@
+.stats-dashboard {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f4f7fb;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.top-stats {
+  display: flex;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 1.5rem 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.top-stats div {
+  flex: 1;
+  min-width: 250px;
+}
+
+.top-stats h3,
+.top-stats h4 {
+  margin: 0;
+  color: #333;
+}
+
+.big-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1976d2;
+  margin-top: 0.5rem;
+}
+
+.error-number {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.chart-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .top-stats {
+    flex-direction: column;
+  }
+
+  .chart-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+

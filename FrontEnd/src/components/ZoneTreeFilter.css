@@ -1,0 +1,21 @@
+.combo-distrito {
+  appearance: none;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: #ffffff url("data:image/svg+xml,%3Csvg fill='gray' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 1rem center;
+  background-size: 14px 14px;
+  border: 1px solid #cbd5e1;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #1e293b;
+  min-width: 180px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.combo-distrito:focus {
+  outline: none;
+  border-color: #1976d2;
+  box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.25);
+  background-color: #fefefe;
+}

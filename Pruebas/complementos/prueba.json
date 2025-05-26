@@ -1,0 +1,24 @@
+  {
+    "id": "100000",
+    "lat": -17.455052,
+    "lng": -65.511346,
+    "consumo": 542,
+    "medidor": [{
+                    "id": "1",
+                    "cuenta": "123ACC4A",
+                    "medidor": "M-1000",
+                    "consumoActual": 1234,
+                    "consumoAcumulado": 5678,
+                    "contrato": "P-1562"
+                },
+                {
+                    "id": "1",
+                    "cuenta": "123ACC4a",
+                    "medidor": "M-1001",
+                    "consumoActual": 1234,
+                    "consumoAcumulado": 5678,
+                    "contrato": "p-1562"
+                }
+                ]
+  }
+
