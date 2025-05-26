@@ -1,0 +1,53 @@
+.zone-chart {
+  background: linear-gradient(to bottom right, #ffffff, #f0f4f8);
+  border-radius: 20px;
+  padding: 1.8rem 2.2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+  position: relative;
+  width: 100%;
+  max-width: 94%;
+}
+
+.zone-chart::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, #4db6ac33 10%, transparent 70%);
+  z-index: 0;
+}
+
+.zone-chart:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.zone-chart h4 {
+  margin: 0;
+  margin-bottom: 1.5rem;
+  font-size: 1.4rem;
+  color: #2e3c51;
+  font-weight: 600;
+  border-left: 6px solid #4db6ac;
+  padding-left: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* AQUI el cambio importante */
+.zone-chart > div {
+  height: 260px;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.zone-chart canvas {
+  border-radius: 8px;
+  background-color: #fff;
+  width: 100% !important;      /* Forzar ancho total */
+  height: 100% !important;     /* Mantener altura definida */
+}

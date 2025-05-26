@@ -1,0 +1,181 @@
+/* Contenedor general del mapa */
+.map-container {
+  position: relative;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Menú flotante superior derecho (selector de puntos máximos) */
+.map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Select dentro del control de límite */
+.map-controls select {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+/* Popup personalizado */
+.leaflet-popup-content-wrapper {
+  border-radius: 10px !important;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Contenedor del popup (datos del medidor) */
+.popup-content {
+  min-width: 240px;
+  max-width: 300px;
+}
+
+/* Botones de medidor alternativos */
+.popup-content .medidor-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+}
+
+.popup-content .medidor-tabs button {
+  background: #e3f2fd;
+  border: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.2s ease;
+}
+
+.popup-content .medidor-tabs button:hover {
+  background: #bbdefb;
+}
+
+.popup-content .medidor-tabs button.active {
+  font-weight: bold;
+  background: #90caf9;
+}
+
+/* Botones de contacto */
+.popup-content .contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.popup-content .contact-buttons button {
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.popup-content .contact-buttons button:hover {
+  transform: scale(1.1);
+}
+
+.popup-content {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.1);
+  font-size: 0.92rem;
+  color: #1e293b;
+  min-width: 240px;
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+/* Destacar los labels */
+.popup-content strong {
+  color: #0f172a;
+  font-weight: 600;
+}
+
+/* Línea divisora visualmente suave */
+.popup-content hr {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin: 0.8rem 0;
+}
+
+/* Pestañas para múltiples medidores */
+.medidor-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+  flex-wrap: wrap;
+}
+
+.medidor-tabs button {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.medidor-tabs button:hover {
+  background: #e0f2fe;
+  border-color: #38bdf8;
+}
+
+.medidor-tabs button.active {
+  background: #0284c7;
+  color: white;
+  font-weight: bold;
+  border-color: #0284c7;
+}
+
+/* Botones de contacto, combinados */
+.contact-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.8rem;
+}
+
+.contact-buttons button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  background-color: #f9fafb;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.contact-buttons button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

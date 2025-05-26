@@ -1,5 +1,7 @@
 import React from 'react';
 import ZoneTreeFilter from './ZoneTreeFilter';
+import './Header.css';
+
 
 interface Props {
   search: string;
@@ -8,7 +10,9 @@ interface Props {
   onZoneChange: (z: any) => void;
   date: string;
   onDateChange: (d: string) => void;
-  onSearchExecute: () => void; // Nueva prop para ejecutar la búsqueda
+  time: string;
+  onTimeChange: (t: string) => void;
+  onSearchExecute: () => void;
 }
 
 const Header: React.FC<Props> = ({ 
@@ -18,7 +22,9 @@ const Header: React.FC<Props> = ({
   onZoneChange, 
   date, 
   onDateChange,
-  onSearchExecute 
+  time,
+  onTimeChange,
+  onSearchExecute
 }) => (
   <header className="header">
     <div className="logo">SEMAPA</div>
@@ -30,7 +36,7 @@ const Header: React.FC<Props> = ({
         onChange={e => onSearch(e.target.value)}
         onKeyDown={e => {
           if (e.key === 'Enter') {
-            onSearchExecute(); // Llama a la función de búsqueda
+            onSearchExecute();
           }
         }}
       />
@@ -40,6 +46,12 @@ const Header: React.FC<Props> = ({
         value={date}
         onChange={e => onDateChange(e.target.value)}
       />
+      <input
+        type="time"
+        value={time}
+        onChange={e => onTimeChange(e.target.value)}
+      />
+      <button onClick={onSearchExecute}>🔍</button>
     </div>
   </header>
 );

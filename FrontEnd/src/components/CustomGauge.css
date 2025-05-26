@@ -1,0 +1,59 @@
+.gauge {
+  background: linear-gradient(145deg, #ffffff, #f4f7fb);
+  border-radius: 20px;
+  padding: 1.8rem 1.2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  transition: box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.gauge::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle, #90caf933 20%, transparent 70%);
+  z-index: 0;
+}
+
+.gauge:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.gauge h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e3a5f;
+  margin-bottom: 1.5rem;
+  max-width: 90%;
+  line-height: 1.45;
+  z-index: 1;
+}
+
+.gauge svg {
+  z-index: 1;
+}
+
+/* Personalización del valor dentro del SVG (texto + emoji) */
+.gauge text {
+  font-family: 'Segoe UI', sans-serif;
+  fill: #1a237e;
+}
+
+.gauge text:nth-of-type(1) {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.gauge text:nth-of-type(2) {
+  font-size: 22px;
+}

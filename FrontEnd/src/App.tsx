@@ -9,15 +9,18 @@ import type { Zone, MedidorDetail } from './types/index';
 const App: React.FC = () => {
   const [search, setSearch] = useState('');
   const [zone, setZone] = useState<Zone>({});
-  const [date, setDate] = useState<string>(new Date().toISOString().slice(0,10));
+  const [date, setDate] = useState<string>('2025-04-24');
+  const [time, setTime] = useState<string>('08:00');
+// Nuevo estado
   const [selected, setSelected] = useState<MedidorDetail | null>(null);
+  const fechaHora = `${new Date(date).toISOString().slice(0, 10)} ${time}`;
 
-  // Función para ejecutar la búsqueda
+   // Concatenado
+
   const handleSearchExecute = useCallback(() => {
     if (search.trim()) {
-      // Dispara un evento personalizado que MapView escuchará
-      window.dispatchEvent(new CustomEvent('execute-search', { 
-        detail: search 
+      window.dispatchEvent(new CustomEvent('execute-search', {
+        detail: search
       }));
     }
   }, [search]);
@@ -31,16 +34,18 @@ const App: React.FC = () => {
         onZoneChange={setZone}
         date={date}
         onDateChange={setDate}
-        onSearchExecute={handleSearchExecute} // Pasa la función de ejecución
+        time={time}
+        onTimeChange={setTime}
+        onSearchExecute={handleSearchExecute}
       />
       <div className="main-content">
         <MapView
           search={search}
           zone={zone}
-          date={date}
+          date={fechaHora} // <- concatenado final
           onSelect={setSelected}
         />
-        <StatsDashboard zone={zone} date={date} />
+        <StatsDashboard zone={zone} date={fechaHora} />
       </div>
     </div>
   );
