@@ -277,7 +277,7 @@ const MedidorTabs: React.FC<{ casa: any; fechaHora: string }> = ({ casa, fechaHo
               title="Correo"
               onClick={() =>
                 window.open(
-                  `http://localhost:8001/enviar?tipo=correo&codigo=${medidor.CodigoMedidor}&fecha=${encodeURIComponent(fechaHora)}`,
+                  `http://localhost:8001/enviar?tipo=email&codigo=${medidor.CodigoMedidor}&fecha=${encodeURIComponent(fechaHora)}`,
                   '_blank'
                 )
               }

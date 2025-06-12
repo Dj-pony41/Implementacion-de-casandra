@@ -14,7 +14,7 @@ CASSANDRA_CONTACT_POINTS = ['127.0.0.1']
 KEYSPACE     = 'semapa_v9'
 TABLE_READ   = 'lecturas_medidor'
 TABLE_ERROR  = 'errores_iot'
-IN_DIR       = './lecturas'
+IN_DIR       = './lecturas2'
 CONCURRENCY  = 200
 NUM_PROCESSES = max(1, cpu_count() - 1)
 

@@ -12,7 +12,7 @@ end_date = datetime.now()
  
 # Rutas
 archivo_excel = "Recursos Practica 5.xlsx"
-archivo_json = "infraestructuras_generadas.json"
+archivo_json = "infraestructuras_generadas3.json"
 salida_dir = "lecturas2"
 os.makedirs(salida_dir, exist_ok=True)
  
